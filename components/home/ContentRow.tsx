@@ -12,8 +12,8 @@ interface Props { title: string; items: Item[]; variant: "movie" | "reel" | "mus
 function MovieCard({ item }: { item: Item }) {
   return (
     <Link href={`/movies/${item.id}`}
-      className="group relative overflow-hidden rounded-xl shrink-0 transition-transform duration-200 hover:scale-[1.03] hover:-translate-y-0.5"
-      style={{ width: 168, background: "#111", border: "1px solid #1f1f1f" }}>
+      className="group relative overflow-hidden rounded-xl shrink-0 transition-transform duration-200 hover:scale-[1.03] hover:-translate-y-0.5 w-[168px] md:w-full"
+      style={{ background: "#111", border: "1px solid #1f1f1f" }}>
       <div className="relative" style={{ aspectRatio: "16/9" }}>
         {item.thumbnailUrl
           ? <Image src={item.thumbnailUrl} alt={item.title} fill className="object-cover" />
@@ -40,8 +40,8 @@ function MovieCard({ item }: { item: Item }) {
 function ReelCard({ item }: { item: Item }) {
   return (
     <Link href={`/reels?id=${item.id}`}
-      className="group relative overflow-hidden rounded-xl shrink-0 transition-transform duration-200 hover:scale-[1.03]"
-      style={{ width: 96, aspectRatio: "9/16", background: "#111", border: "1px solid #1f1f1f" }}>
+      className="group relative overflow-hidden rounded-xl shrink-0 transition-transform duration-200 hover:scale-[1.03] w-[96px] md:w-full"
+      style={{ aspectRatio: "9/16", background: "#111", border: "1px solid #1f1f1f" }}>
       {item.thumbnailUrl
         ? <Image src={item.thumbnailUrl} alt={item.title} fill className="object-cover" />
         : <div className="absolute inset-0 flex items-center justify-center" style={{ background: "#0d0d0d" }}>
@@ -63,8 +63,8 @@ function ReelCard({ item }: { item: Item }) {
 function MusicCard({ item }: { item: Item }) {
   return (
     <Link href={`/music?id=${item.id}`}
-      className="group flex items-center gap-3 p-3 rounded-xl transition-all duration-150"
-      style={{ background: "#111", border: "1px solid #1f1f1f", width: 250 }}
+      className="group flex items-center gap-3 p-3 rounded-xl transition-all duration-150 w-[250px] md:w-full"
+      style={{ background: "#111", border: "1px solid #1f1f1f" }}
       onMouseEnter={(e) => (e.currentTarget.style.background = "#161616", e.currentTarget.style.borderColor = "#2a2a2a")}
       onMouseLeave={(e) => (e.currentTarget.style.background = "#111", e.currentTarget.style.borderColor = "#1f1f1f")}>
       <div className="relative w-10 h-10 rounded-xl overflow-hidden shrink-0"
