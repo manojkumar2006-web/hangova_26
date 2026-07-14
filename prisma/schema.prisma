@@ -188,3 +188,13 @@ model YoutubeCache {
   duration    String?
   cachedAt    DateTime @default(now())
 }
+
+model OtpToken {
+  id        String   @id @default(cuid())
+  email     String
+  otp       String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
