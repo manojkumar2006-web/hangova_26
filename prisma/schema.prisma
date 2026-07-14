@@ -1,0 +1,190 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Group {
+  id        String    @id @default(cuid())
+  name      String
+  code      String    @unique
+  isPublic  Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  members   User[]
+  content   Content[]
+}
+
+model User {
+  id            String      @id @default(cuid())
+  name          String
+  username      String      @unique
+  email         String      @unique
+  password      String
+  avatarUrl     String?
+  isAdmin       Boolean     @default(false)
+  group         Group?      @relation(fields: [groupId], references: [id])
+  groupId       String?
+  createdAt     DateTime    @default(now())
+  content       Content[]
+  comments      Comment[]
+  reactions     Reaction[]
+  reminders     Reminder[]
+  playlists     Playlist[]
+  messages      Message[]
+  watchProgress WatchProgress[]
+  pushSubs      PushSubscription[]
+}
+
+model Content {
+  id             String         @id @default(cuid())
+  type           ContentType
+  source         ContentSource
+  fileUrl        String?
+  youtubeVideoId String?
+  title          String
+  description    String?
+  thumbnailUrl   String?
+  genre          String?
+  downloadable   Boolean        @default(false)
+  isFeatured     Boolean        @default(false)
+  group          Group          @relation(fields: [groupId], references: [id])
+  groupId        String
+  uploadedBy     User?          @relation(fields: [uploadedById], references: [id])
+  uploadedById   String?
+  createdAt      DateTime       @default(now())
+  comments       Comment[]
+  reactions      Reaction[]
+  scheduledDrop  ScheduledDrop?
+  watchProgress  WatchProgress[]
+}
+
+enum ContentType {
+  movie
+  reel
+  song
+}
+
+enum ContentSource {
+  upload
+  youtube
+}
+
+model WatchProgress {
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  content     Content  @relation(fields: [contentId], references: [id])
+  contentId   String
+  progressSec Int      @default(0)
+  durationSec Int      @default(0)
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, contentId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   Content  @relation(fields: [contentId], references: [id])
+  contentId String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  text      String
+  createdAt DateTime @default(now())
+}
+
+model Reaction {
+  id        String   @id @default(cuid())
+  content   Content  @relation(fields: [contentId], references: [id])
+  contentId String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  type      String   @default("like")
+
+  @@unique([userId, contentId, type])
+}
+
+model ScheduledDrop {
+  id        String     @id @default(cuid())
+  content   Content    @relation(fields: [contentId], references: [id])
+  contentId String     @unique
+  dropAt    DateTime
+  reminders Reminder[]
+}
+
+model Reminder {
+  id              String        @id @default(cuid())
+  user            User          @relation(fields: [userId], references: [id])
+  userId          String
+  scheduledDrop   ScheduledDrop @relation(fields: [scheduledDropId], references: [id])
+  scheduledDropId String
+  notified        Boolean       @default(false)
+
+  @@unique([userId, scheduledDropId])
+}
+
+model Playlist {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  name       String
+  contentIds String[]
+  coverUrl   String?
+  createdAt  DateTime @default(now())
+}
+
+model Conversation {
+  id        String    @id @default(cuid())
+  isGroup   Boolean   @default(false)
+  name      String?
+  groupId   String?
+  members   ConversationMember[]
+  messages  Message[]
+  createdAt DateTime  @default(now())
+}
+
+model ConversationMember {
+  id             String       @id @default(cuid())
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversationId String
+  userId         String
+
+  @@unique([conversationId, userId])
+}
+
+model Message {
+  id              String       @id @default(cuid())
+  conversation    Conversation @relation(fields: [conversationId], references: [id])
+  conversationId  String
+  sender          User         @relation(fields: [senderId], references: [id])
+  senderId        String
+  text            String?
+  sharedContentId String?
+  createdAt       DateTime     @default(now())
+}
+
+model PushSubscription {
+  id           String   @id @default(cuid())
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String
+  endpoint     String   @unique
+  p256dh       String
+  auth         String
+  createdAt    DateTime @default(now())
+}
+
+model YoutubeCache {
+  videoId     String   @id
+  title       String
+  description String?
+  thumbnailUrl String
+  channelName  String
+  duration    String?
+  cachedAt    DateTime @default(now())
+}
