@@ -15,8 +15,8 @@ export default function HeroCard({ content, progress, isResume }: Props) {
   const href = `${typeHref[content.type] ?? "/movies"}/${content.id}`;
 
   return (
-    <div className="relative rounded-2xl overflow-hidden"
-      style={{ aspectRatio: "16/8", background: "#111", border: "1px solid #1f1f1f" }}>
+    <div className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9] lg:aspect-[25/9] max-h-[380px] w-full"
+      style={{ background: "#111", border: "1px solid #1f1f1f" }}>
       {/* Thumbnail */}
       {content.thumbnailUrl
         ? <Image src={content.thumbnailUrl} alt={content.title} fill className="object-cover" priority />

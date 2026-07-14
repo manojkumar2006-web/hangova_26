@@ -3,27 +3,27 @@
 @source ".";
 @source "../components";
 
-:root {
-  --bg: #080808;
-  --s1: #111111;
-  --s2: #181818;
-  --s3: #222222;
-  --acc: #7c6fff;
-  --acc-dim: rgba(124,111,255,0.1);
-  --acc-border: rgba(124,111,255,0.2);
-  --t1: #f0f0f0;
-  --t2: #888;
-  --t3: #444;
-  --border: #1a1a1a;
-  --border2: #242424;
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --color-bg: #080808;
+  --color-s1: #111111;
+  --color-s2: #181818;
+  --color-s3: #222222;
+  --color-acc: #7c6fff;
+  --color-t1: #f0f0f0;
+  --color-t2: #888888;
+  --color-t3: #444444;
+  --color-border: #1a1a1a;
+  --color-border2: #242424;
 }
+
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: var(--bg);
-  color: var(--t1);
+  background: var(--color-bg);
+  color: var(--color-t1);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -61,5 +61,5 @@ input, button, select, textarea {
   overflow: hidden;
 }
 
-:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; border-radius: 6px; }
-::selection { background: var(--acc); color: #fff; }
+:focus-visible { outline: 2px solid var(--color-acc); outline-offset: 2px; border-radius: 6px; }
+::selection { background: var(--color-acc); color: #fff; }
