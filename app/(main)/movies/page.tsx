@@ -1,8 +1,8 @@
+"use client";
 import HeroCard from "@/components/home/HeroCard";
 import ContentRow from "@/components/home/ContentRow";
 import { MOCK_MOVIES } from "@/lib/mockData";
 
-export const metadata = { title: "Movies" };
 
 export default function MoviesPage() {
   const featured = MOCK_MOVIES[1]; // Dune

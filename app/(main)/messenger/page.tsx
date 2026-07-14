@@ -1,7 +1,6 @@
 import { Search, Edit, MoreVertical, Phone, Video, Smile, Paperclip, Send } from "lucide-react";
 import { MOCK_CONVOS, MOCK_MESSAGES } from "@/lib/mockData";
 
-export const metadata = { title: "Messenger" };
 
 export default function MessengerPage() {
   const activeConvo = MOCK_CONVOS[0];

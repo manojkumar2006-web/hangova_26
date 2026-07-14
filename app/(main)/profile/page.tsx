@@ -1,9 +1,9 @@
+"use client";
 import Image from "next/image";
 import { Settings, Edit2, Grid, Bookmark, Clock, Award } from "lucide-react";
 import ContentRow from "@/components/home/ContentRow";
 import { MOCK_MOVIES, MOCK_REELS } from "@/lib/mockData";
 
-export const metadata = { title: "Profile" };
 
 export default function ProfilePage() {
   return (

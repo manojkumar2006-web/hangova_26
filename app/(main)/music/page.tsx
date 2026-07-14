@@ -1,8 +1,8 @@
+"use client";
 import Image from "next/image";
 import { Play, Heart, MoreHorizontal, Clock, Shuffle, Repeat, SkipBack, SkipForward } from "lucide-react";
 import { MOCK_SONGS, MOCK_PLAYLISTS } from "@/lib/mockData";
 
-export const metadata = { title: "Music" };
 
 export default function MusicPage() {
   return (
