@@ -8,6 +8,9 @@ import {
   User, Mail, Lock, CheckCircle2, RefreshCw, ShieldCheck,
 } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
+
 /* ─── Types ──────────────────────────────────────────── */
 interface FormState { name: string; email: string; password: string; confirmPassword: string; }
 interface Errors { name?: string; email?: string; password?: string; confirmPassword?: string; api?: string; }

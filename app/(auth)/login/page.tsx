@@ -6,6 +6,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Eye, EyeOff, Loader2, Sparkles, ArrowRight, Mail, Lock, CheckCircle2 } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
+
 /* ── Per-field validators ── */
 function validateEmail(v: string) {
   if (!v.trim()) return "Email is required";
