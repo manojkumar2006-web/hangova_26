@@ -49,22 +49,47 @@ function Field({ id, label, type, placeholder, icon: Icon, value, onChange, onBl
   const border = error ? "rgba(239,68,68,0.55)" : focused ? "rgba(124,111,255,0.6)" : success ? "rgba(34,197,94,0.45)" : "rgba(255,255,255,0.08)";
   const bg = error ? "rgba(239,68,68,0.05)" : focused ? "rgba(124,111,255,0.06)" : "rgba(255,255,255,0.04)";
   return (
-    <div className="space-y-1.5">
-      <label htmlFor={id} className="text-xs font-semibold uppercase tracking-wider" style={{ color: "#666" }}>{label}</label>
+    <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+      <label htmlFor={id} style={{
+        fontSize: "11px",
+        fontWeight: "600",
+        textTransform: "uppercase",
+        letterSpacing: "0.05em",
+        color: "#666",
+        display: "block",
+      }}>{label}</label>
       <div className="relative">
         <Icon size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
-          style={{ color: focused ? "#7c6fff" : error ? "#ef4444" : "#444" }} />
+          style={{ color: focused ? "#7c6fff" : error ? "#ef4444" : "#444", zIndex: 10 }} />
         <input id={id} type={type} placeholder={placeholder} value={value}
           onChange={e => onChange(e.target.value)}
           onFocus={() => setFocused(true)}
           onBlur={() => { setFocused(false); onBlurFn?.(); }}
-          className="w-full pl-10 pr-10 py-3 rounded-xl text-sm text-white placeholder-[#333] focus:outline-none transition-all duration-200"
-          style={{ background: bg, border: `1px solid ${border}`, boxShadow: focused && !error ? "0 0 0 4px rgba(124,111,255,0.08)" : "none" }} />
-        <div className="absolute right-3.5 top-1/2 -translate-y-1/2">
+          className="w-full placeholder-[#333] transition-all duration-200"
+          style={{
+            background: bg,
+            border: `1px solid ${border}`,
+            boxShadow: focused && !error ? "0 0 0 4px rgba(124,111,255,0.08)" : "none",
+            width: "100%",
+            paddingLeft: "42px",
+            paddingRight: "42px",
+            paddingTop: "14px",
+            paddingBottom: "14px",
+            borderRadius: "12px",
+            fontSize: "14px",
+            color: "#ffffff",
+            outline: "none",
+            fontFamily: "inherit",
+          }} />
+        <div className="absolute right-3.5 top-1/2 -translate-y-1/2" style={{ zIndex: 10 }}>
           {rightSlot ?? (success && <CheckCircle2 size={15} style={{ color: "#22c55e" }} />)}
         </div>
       </div>
-      {error && <p className="text-[11px] flex items-center gap-1" style={{ color: "#f87171" }}><span>⚠</span>{error}</p>}
+      {error && (
+        <p style={{ fontSize: "11px", color: "#f87171", display: "flex", alignItems: "center", gap: "4px", marginTop: "2px" }}>
+          <span>⚠</span>{error}
+        </p>
+      )}
     </div>
   );
 }
